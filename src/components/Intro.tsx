@@ -87,7 +87,7 @@ const Intro = () => {
         >
           {/* Inspiring Quote */}
           <motion.h1 
-            className="text-3xl md:text-5xl lg:text-6xl font-montreal tracking-tight leading-tight max-w-4xl mx-auto mb-8"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-montreal tracking-tight leading-tight max-w-4xl mx-auto mb-4 md:mb-8 px-4"
             variants={titleVariants}
             initial="hidden"
             animate="visible"
@@ -100,23 +100,23 @@ const Intro = () => {
           
           {/* Author Signature */}
           <motion.div
-            className="mb-12"
+            className="mb-8 md:mb-12"
             variants={fadeInVariants}
             initial="hidden"
             animate="visible"
             custom={0.5}
           >
-            <p className="text-xl md:text-2xl font-space tracking-wider text-text/90 font-medium">
+            <p className="text-lg sm:text-xl md:text-2xl font-space tracking-wider text-text/90 font-medium">
               ÖMER SAİD AKÇİN
             </p>
-            <p className="text-base md:text-lg font-space tracking-wide text-accent mt-2">
+            <p className="text-sm sm:text-base md:text-lg font-space tracking-wide text-accent mt-1 md:mt-2">
               FLUTTER DEVELOPER
             </p>
           </motion.div>
           
           {/* Social Links */}
           <motion.div 
-            className="flex justify-center gap-6 mb-16"
+            className="flex justify-center gap-4 sm:gap-6 mb-10 md:mb-16"
             variants={fadeInVariants}
             initial="hidden"
             animate="visible"
@@ -151,7 +151,7 @@ const Intro = () => {
       
       {/* Scroll Indicator with KEŞFET text */}
       <motion.div
-        className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 sm:bottom-12 left-1/2 transform -translate-x-1/2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ 
@@ -163,11 +163,12 @@ const Intro = () => {
         }}
       >
         <a href="#projects" className="flex flex-col items-center group">
-          <p className="text-sm text-accent mb-2 group-hover:text-white transition-colors duration-300">KEŞFET</p>
-          <div className="w-10 h-10 flex items-center justify-center rounded-full border border-accent/30 group-hover:border-accent/60 transition-all duration-300">
+          <p className="text-xs sm:text-sm text-accent mb-1 sm:mb-2 group-hover:text-white transition-colors duration-300">KEŞFET</p>
+          <div className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full border border-accent/30 group-hover:border-accent/60 transition-all duration-300">
             <svg 
-              width="20" 
-              height="20" 
+              width="16" 
+              height="16"
+              className="sm:w-5 sm:h-5" 
               viewBox="0 0 24 24" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"

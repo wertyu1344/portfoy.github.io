@@ -38,6 +38,25 @@ const ProjectShowcase = ({
   screens = defaultScreens, 
   reverse = false 
 }: ProjectShowcaseProps) => {
+  // Mobil cihaz kontrolü için state
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Ekran boyutunu kontrol et
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // İlk yükleme kontrolü
+    checkMobile();
+    
+    // Ekran boyutu değiştiğinde kontrol et
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentScreen, setCurrentScreen] = useState(0);
   
@@ -74,10 +93,15 @@ const ProjectShowcase = ({
     [0.8, 1, 1, 1, 1, 0.9]
   );
   
+  // Mobil için farklı X değerleri kullanıyoruz
   const phoneX = useTransform(
     progress,
     [0, 1, 2, 3, 4, 5],
-    [0, 0, 0, 0, reverse ? 150 : -150, reverse ? 200 : -200]
+    [0, 0, 0, 0, 
+      // Mobil cihazlarda daha az hareket, masaüstünde daha fazla
+      window?.innerWidth < 768 ? (reverse ? 50 : -50) : (reverse ? 150 : -150), 
+      window?.innerWidth < 768 ? (reverse ? 80 : -80) : (reverse ? 200 : -200)
+    ]
   );
   
   const infoOpacity = useTransform(
@@ -102,9 +126,9 @@ const ProjectShowcase = ({
   return (
     <div 
       ref={containerRef}
-      className="min-h-[500vh] relative mb-32"
+      className="min-h-[500vh] relative mb-16 md:mb-32"
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-2 md:px-4">
         <div className="container mx-auto px-4 w-full h-full flex items-center justify-center">
           {/* Phone mockup with screen */}
           <motion.div 
@@ -115,7 +139,7 @@ const ProjectShowcase = ({
             }}
             transition={{ duration: 0.1 }}
           >
-            <div className="relative w-[320px] h-[650px]">
+            <div className="relative w-[280px] md:w-[320px] h-[570px] md:h-[650px]">
               {/* Phone frame */}
               <div className="absolute inset-0 bg-gray-800 rounded-[40px] border-4 border-gray-700 shadow-lg z-10"></div>
               
@@ -149,12 +173,12 @@ const ProjectShowcase = ({
               <div className="absolute -inset-12 -z-10 bg-gradient-to-br from-gray-700/20 to-transparent rounded-[60px] blur-xl" />
             </div>
             
-            {/* Screen indicator */}
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-2 mb-8">
+            {/* Screen indicator - mobil için daha küçük */}
+            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex space-x-1 md:space-x-2 mb-4 md:mb-8">
               {screens.slice(0, 4).map((_, index) => (
                 <div 
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
                     currentScreen === index ? 'bg-white w-6' : 'bg-gray-500'
                   }`}
                 />
@@ -162,9 +186,9 @@ const ProjectShowcase = ({
             </div>
           </motion.div>
           
-          {/* Project info */}
+          {/* Project info - mobil uyumlu */}
           <motion.div 
-            className={`absolute z-10 max-w-md ${reverse ? 'left-8 md:left-16 text-left' : 'right-8 md:right-16'}`}
+            className={`absolute z-10 max-w-md ${reverse ? 'left-4 md:left-16 text-left' : 'right-4 md:right-16'} ${window?.innerWidth < 768 ? 'bottom-20' : ''}`}
             style={{ 
               opacity: infoOpacity,
               y: infoY
@@ -180,7 +204,7 @@ const ProjectShowcase = ({
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                <h2 className="text-2xl md:text-4xl font-bold text-white">
                   {title}
                 </h2>
               </motion.div>
@@ -192,7 +216,7 @@ const ProjectShowcase = ({
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <p className="text-lg text-gray-300">{description}</p>
+                <p className="text-sm md:text-lg text-gray-300">{description}</p>
               </motion.div>
               
               {/* Teknolojiler */}
@@ -205,7 +229,7 @@ const ProjectShowcase = ({
                 {technologies.map((tech, index) => (
                   <motion.span 
                     key={index}
-                    className="px-3 py-1 bg-background/20 text-white text-sm border border-gray-700 rounded-md"
+                    className="px-2 md:px-3 py-1 bg-background/20 text-white text-xs md:text-sm border border-gray-700 rounded-md"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 + (index * 0.05) }}
