@@ -6,11 +6,17 @@ on:
       - main  # Varsayılan branch adınız "main" değilse, değiştirin (örn. "master")
   workflow_dispatch: # Manuel olarak da çalıştırılabilir
 
+# GitHub Pages'e dağıtım için özel izinler
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout 🔐️
         uses: actions/checkout@v3
 
       - name: Setup Node.js ⚙️
@@ -19,14 +25,15 @@ jobs:
           node-version: 18
           cache: 'npm'
 
-      - name: Install dependencies 📦
+      - name: Install dependencies 💶
         run: npm ci
 
       - name: Build 🔧
         run: npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          folder: out # Next.js export çıktısının bulunduğu klasör
-          branch: gh-pages # GitHub Pages için kullanılacak branch
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          cname: # Özel alan adınız varsa buraya ekleyin
