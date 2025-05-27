@@ -135,7 +135,7 @@ const ProjectShowcase = ({
                       style={{ padding: 0 }}
                     >
                       <img 
-                        src={`/project${screenItem.project}/screen${screenItem.screen}${screenItem.project === 1 ? '.png' : '.jpeg'}`}
+                        src={`/portfoy.github.io/project${screenItem.project}/screen${screenItem.screen}${screenItem.project === 1 ? '.png' : '.jpeg'}`}
                         alt={`Proje ${screenItem.project} - Ekran ${screenItem.screen}`}
                         className="w-full h-full object-cover"
                         style={{ objectPosition: 'center top' }}
