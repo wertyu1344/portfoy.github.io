@@ -132,47 +132,57 @@ const ProjectShowcase = ({
           {/* Desktop için proje bilgisi */}
           {!isMobile && (
             <motion.div 
-              className="w-full max-w-md text-center mb-6"
-              style={{ opacity: infoOpacity }}
+              className={`absolute z-10 max-w-md ${reverse ? 'left-16 text-left' : 'right-16'}`}
+              style={{ 
+                opacity: infoOpacity,
+                y: infoY
+              }}
+              transition={{ duration: 0.3 }}
             >
-              <motion.div 
-                className="mb-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <h2 className="text-xl sm:text-2xl font-bold text-white">
-                  {title}
-                </h2>
-              </motion.div>
-              
-              <motion.div 
-                className="mb-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-              >
-                <p className="text-xs sm:text-sm text-gray-300">{description}</p>
-              </motion.div>
-              
-              <motion.div 
-                className="flex flex-wrap justify-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-              >
-                {technologies.map((tech, index) => (
-                  <motion.span 
-                    key={index}
-                    className="px-1 py-0.5 sm:px-2 sm:py-1 bg-background/20 text-white text-[10px] sm:text-xs border border-gray-700 rounded-md"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 + (index * 0.05) }}
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </motion.div>
+              {/* Sade ve şık tasarım */}
+              <div className={`${reverse ? '' : 'text-right'}`}>
+                {/* Proje başlığı */}
+                <motion.div 
+                  className="mb-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="text-4xl font-bold text-white">
+                    {title}
+                  </h2>
+                </motion.div>
+                
+                {/* Proje açıklaması */}
+                <motion.div 
+                  className="mb-6"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                >
+                  <p className="text-lg text-gray-300">{description}</p>
+                </motion.div>
+                
+                {/* Teknolojiler */}
+                <motion.div 
+                  className={`flex flex-wrap gap-2 ${reverse ? '' : 'justify-end'}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                >
+                  {technologies.map((tech, index) => (
+                    <motion.span 
+                      key={index}
+                      className="px-3 py-1 bg-background/20 text-white text-sm border border-gray-700 rounded-md"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3 + (index * 0.05) }}
+                    >
+                      {tech}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              </div>
             </motion.div>
           )}
           
